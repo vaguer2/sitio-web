@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel Donador</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/donador.js" defer></script>
+</head>
+<body class="donador-panel">
+  <header>
+    <h2>DONADOR</h2>
+    <button onclick="logout()">Cerrar Sesión</button>
+  </header>
+
+  <section class="donor-info">
+    <p>Nombre: Walmart</p>
+    <p>Número: 954 255 6153</p>
+    <p>Ubicación: xxxxxxx</p>
+    <p>Estado: <select><option>Activo</option><option>Inactivo</option></select></p>
+  </section>
+
+  <section class="donation-form">
+    <h3>Realizar Donación</h3>
+    <input type="number" placeholder="Cantidad">
+    <input type="text" placeholder="Destino">
+    <input type="text" placeholder="Tipo de comida">
+    <input type="text" placeholder="Comida que dona">
+    <input type="text" placeholder="Fecha de vencimiento">
+    <input type="time" placeholder="Hora de salida">
+    <input type="time" placeholder="Hora de llegada">
+    <button>Enviar Donación</button>
+  </section>
+</body>
+</html>

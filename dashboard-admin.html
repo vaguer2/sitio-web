@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel Admin</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/admin.js" defer></script>
+</head>
+<body class="admin-panel">
+  <header>
+    <h2>ADMIN</h2>
+    <button onclick="logout()">Cerrar Sesión</button>
+  </header>
+
+  <section class="user-info">
+    <p>Número: 954 255 6153</p>
+    <p>Área: XOXOXOXOXO</p>
+    <p>Estado: <select><option>Activo</option><option>Bajo</option></select></p>
+  </section>
+
+  <section class="stats">
+    <h3>Estadísticas de Donadores</h3>
+    <div class="chart">
+      <p>Walmart: 35%</p>
+      <p>Chedraui: 65%</p>
+    </div>
+  </section>
+
+  <section class="tracking">
+    <h3>Rastreo de Donaciones</h3>
+    <label>Buscar por fecha: <input type="date"></label>
+    <label>Estado: 
+      <select>
+        <option>Todos</option>
+        <option>Limpios</option>
+      </select>
+    </label>
+    <table>
+      <tr><th>Fecha</th><th>Hora</th><th>Donador</th><th>Comida</th><th>Estado</th></tr>
+      <tr><td>01/11</td><td>10:00</td><td>Walmart</td><td>Verduras</td><td>Limpio</td></tr>
+    </table>
+  </section>
+</body>
+</html>
