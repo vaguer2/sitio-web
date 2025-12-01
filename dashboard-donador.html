@@ -60,17 +60,30 @@
             <div style="flex:0 0 1px;" aria-hidden="true"></div>
             <div style="flex:1;">
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                <div class="comentarios-title">COMENTARIOS</div>
+
                 <a href="#" id="volver-from-donaciones" class="volver">← volver</a>
               </div>
 
-              <div style="display:flex;gap:18px;align-items:flex-start;margin-bottom:16px;">
+              <div style="display:flex;flex-direction:column;gap:18px;align-items:flex-start;margin-bottom:16px;">
                 <div class="estatus-box">
                   <button id="estatusToggle" class="estatus-toggle" aria-expanded="false">ESTATUS <span class="caret">▾</span></button>
                   <div class="estatus-list" id="estatusList" role="menu" aria-hidden="true">
                     <div role="menuitem" data-value="ENTREGADO">ENTREGADO</div>
                     <div role="menuitem" data-value="PENDIENTE">PENDIENTE</div>
                     <div role="menuitem" data-value="CANCELADO">CANCELADO</div>
+                  </div>
+                </div>
+
+                <!-- Historial de donaciones-->
+                <div class="history-box" style="width:100%;">
+                  <div class="history-card">
+                    <div class="history-title">HISTORIAL DE DONACIONES</div>
+                    <div class="history-actions">
+                      <button id="clearDonations" class="btn-small">Limpiar historial</button>
+                    </div>
+                    <div id="donationHistory" class="history-list" aria-live="polite">
+                      <!-- Donaciones renderizadas aquí -->
+                    </div>
                   </div>
                 </div>
 
