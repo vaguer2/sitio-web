@@ -13,7 +13,7 @@ body {
   -moz-osx-font-smoothing:grayscale;
 }
 
-/* Site header (inicio) styling to match reference */
+/* Estilo del encabezado del sitio (inicio) para coincidir con la referencia */
 .site-header{
    background:#3b0709;
     padding:18px 0 36px 0;
@@ -46,7 +46,7 @@ body {
     display:block; 
   }
 
-/* push page content down a bit so header visual sits like reference */
+/* empujar el contenido de la página hacia abajo un poco para que el visual del encabezado se asiente como en la referencia */
 .page-wrap{
    padding:28px 24px; 
   }
@@ -934,4 +934,191 @@ textarea.input-like{ min-height:84px;
 
 /* logotipo específico del donante ubicado en la esquina superior derecha */
 .avatar img, .avatar-img{ width:120%; height:120%; object-fit:cover; object-position:center 54%; display:block; border-radius:50%; border:6px solid rgba(255,255,255,0.96); box-shadow:0 8px 18px rgba(0,0,0,0.12); }
+
+/* Donaciones - vista completa */
+.donaciones-fullview{
+  background:#dff4fb; /* fondo claro azulado */
+  color: #2b1216;
+  padding:18px;
+  border-radius:8px;
+}
+.donaciones-fullview .container{
+  display:flex;
+  gap:24px;
+  align-items:flex-start;
+}
+.donaciones-panel{
+  display:flex;
+  gap:18px;
+  align-items:flex-start;
+}
+.estatus-box{
+  min-width:220px;
+}
+.estatus-title{
+  display:inline-block;
+  background:#fff;
+  padding:10px 14px;
+  border-radius:18px;
+  font-weight:800;
+  color:#102a33;
+  box-shadow:0 6px 0 rgba(0,0,0,0.06);
+}
+.estatus-list{
+  margin-top:12px;
+  background:#fff;
+  border-radius:12px;
+  padding:18px 14px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.06);
+  text-align:center;
+}
+.estatus-list div{
+   padding:14px 0; 
+   font-weight:700;
+    letter-spacing:6px; 
+    color:#102a33; 
+  }
+.truck-img{
+   width:96px;
+    height:auto; 
+    margin-left:12px; 
+  }
+
+/* comportamiento del desplegable */
+.estatus-toggle{
+   display:inline-flex; align-items:center;
+    gap:8px; 
+    cursor:pointer;
+   }
+.estatus-toggle .caret{ 
+  display:inline-block;
+   width:22px;
+    height:22px;
+     background:#e6e6e6;
+      border-radius:6px;
+       text-align:center; 
+       line-height:22px; 
+      }
+.estatus-list{ 
+  display:none; 
+}
+.estatus-list.open{
+   display:block; 
+  }
+.estatus-list div{
+   cursor:pointer; 
+  }
+.estatus-list div:hover{
+   background:rgba(0,0,0,0.02); 
+  }
+.estatus-list div.selected{ 
+  background:#f0fbff; color:#0b3b45; 
+  box-shadow:inset 0 -4px 0 
+  rgba(0,0,0,0.02);
+ }
+
+.chat-box{
+  background:#fff;
+  border-radius:12px;
+  padding:16px;
+  box-shadow:0 12px 30px rgba(0,0,0,0.06);
+  min-width:320px;
+}
+.chat-box h3{ 
+  margin:0 0 12px 0;
+   color:#102a33; 
+   font-size:1.15rem; 
+  }
+.chat-row{ 
+  display:flex; gap:12px;
+   align-items:center;
+    margin-bottom:10px; 
+  }
+.chat-avatar{
+   width:34px;
+    height:34px;
+     border-radius:50%; 
+     flex:0 0 34px; 
+    }
+.chat-bubble{
+   background:#e9e9ea;
+    padding:10px 14px; border-radius:16px;
+     flex:1; 
+     font-weight:700; 
+    }
+.chat-send{ 
+  background:#8fbf3b;
+   border:none; color:#fff;
+    padding:8px 12px; 
+    border-radius:8px; 
+    cursor:pointer; 
+  }
+
+.donaciones-fullview .volver{
+   color:#5a1216;
+    text-decoration:none;
+     font-weight:700; 
+    }
+
+@media (max-width:1100px){
+  .donaciones-fullview .container{
+     flex-direction:column; 
+    }
+  .estatus-box, .chat-box{ width:100%; }
+}
+
+/* Estilos de entrada de chat */
+.chat-input-row{
+   display:flex;
+    gap:10px;
+     align-items:center; 
+     margin-top:12px; 
+    }
+.message-input{
+   flex:1;
+    padding:12px 14px;
+     border-radius:12px; 
+     border:1px solid #e0e0e0; 
+     background:#f3f7f9; 
+     font-weight:700; 
+    }
+.chat-message{
+   display:flex; gap:12px;
+    align-items:flex-start;
+     margin-bottom:10px; 
+    }
+.chat-message .chat-avatar{ 
+  flex:0 0 34px; 
+}
+.chat-message .chat-bubble{
+   border-radius:16px; padding:10px 14px; 
+  }
+.chat-message.mine .chat-bubble{ 
+  background:#e9e9ea; 
+}
+.chat-message.admin .chat-bubble{
+   background:#f0f7fb; 
+  }
+.chat-list{
+   max-height:260px;
+    overflow:auto;
+     padding-right:6px; 
+    }
+
+/* etiqueta de remitente y selector de remitente */
+.chat-sender{ 
+  font-size:0.78rem;
+   color:#5a5a5a;
+    margin-top:6px;
+     font-weight:700;
+     }
+.chat-sender.inline{
+   margin-left:46px; 
+  }
+.sender-select{
+   padding:8px 10px;
+    border-radius:8px; border:1px solid #ddd; 
+    background:#fff; 
+    font-weight:700; 
+  }
 
