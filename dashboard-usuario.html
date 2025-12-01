@@ -9,88 +9,134 @@
   <script src="js/app.js" defer></script>
 </head>
 <body>
-  <div class="page-wrap">
-    <div class="panel">
-      <div class="panel-inner">
-        <aside class="usuario">
-          <div class="user-box">
-            <h2 class="user-title">Nombre de usuario</h2>
-            <div class="user-top">
-              <div class="avatar-wrap">
-                <img src="assets/piña.png" alt="Avatar" class="avatar" />
-              </div>
-              <div class="status-group">
-                <button class="status-btn active"><span>Activo</span></button>
-                <button class="status-btn inactive"><span>Baja</span></button>
-              </div>
-            </div>
-            <div class="profile-box">
-              <p><strong>Rol de usuario:</strong> Beneficiario</p>
-              <p><strong>Carrera:</strong> Lic. en patitos</p>
-            </div>
-          </div>
-
-          <div class="info-panel">
-            <div class="info-title">Información del usuario</div>
-            <p><strong>Matrícula:</strong> 1234 56789</p>
-            <p><strong>Grupo:</strong> Plaza Sésamo</p>
-            <p><strong>Cuatrimestre:</strong> XOXOXOXOXO</p>
-            <a class="btn-logout" href="login.html">Cerrar Sesión</a>
-          </div>
-        </aside>
-
-        <main class="formulario">
-          <div class="right-panel">
-            <div class="panel-title">Panel</div>
-            <div class="chip">Bienvenida</div>
-
-            <div class="card">
-              <div class="card-inner">
-                <div class="card-row">
-                  <img src="assets/alergia.jpg" alt="ilustracion" class="card-thumb">
-                  <div class="card-text">
-                    <h3>¿Alergia alimentaria?</h3>
-                    <p class="muted">Indique si es alérgico a algún tipo de comida.</p>
-                    <input type="text" class="input-like" placeholder="Ej: Nueces, mariscos, fresas...">
-                  </div>
-                  <button class="guardar">Guardar</button>
+  <!DOCTYPE html>
+  <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bocaditos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/app.js" defer></script>
+  </head>
+  <body>
+    <div class="page-wrap">
+      <div class="panel">
+        <div class="panel-inner">
+          <aside class="usuario">
+            <div class="user-box">
+              <h2 class="user-title">Nombre de usuario</h2>
+              <div class="user-top">
+                <div class="avatar-wrap">
+                  <img src="assets/piña.png" alt="Avatar" class="avatar" />
+                </div>
+                <div class="status-group">
+                  <button class="status-btn active"><span>Activo</span></button>
+                  <button class="status-btn inactive"><span>Baja</span></button>
                 </div>
               </div>
-            </div>
-
-            <div class="card">
-              <div class="card-inner">
-                <div class="card-row">
-                  <img src="assets/buzon.png" alt="mail" class="card-thumb">
-                  <div class="card-text">
-                    <h3>¿Comentarios o quejas?</h3>
-                    <p class="muted">Comparte tus comentarios o quejas para mejorar nuestro servicio.</p>
-                    <textarea class="input-like" placeholder="Escriba aquí sus comentarios"></textarea>
-                  </div>
-                  <button class="enviar">Enviar</button>
-                </div>
+              <div class="profile-box">
+                <p><strong>Rol de usuario:</strong> Beneficiario</p>
+                <p><strong>Carrera:</strong> Lic. en patitos</p>
               </div>
             </div>
 
-          </div>
-        </main>
+            <div class="info-panel">
+              <div class="info-title">Información del usuario</div>
+              <p><strong>Matrícula:</strong> 1234 56789</p>
+              <p><strong>Grupo:</strong> Plaza Sésamo</p>
+              <p><strong>Cuatrimestre:</strong> XOXOXOXOXO</p>
+              <a class="btn-logout" href="login.html">Cerrar Sesión</a>
+            </div>
+          </aside>
+
+          <main class="formulario">
+            <div class="right-panel">
+              <div class="panel-title">Panel</div>
+              <div class="chip">Bienvenida</div>
+
+              <div class="card">
+                <div class="card-inner">
+                  <div class="card-row">
+                    <img src="assets/alergia.jpg" alt="ilustracion" class="card-thumb">
+                    <div class="card-text">
+                      <h3>¿Alergia alimentaria?</h3>
+                      <p class="muted">Indique si es alérgico a algún tipo de comida.</p>
+                      <input type="text" class="input-like" placeholder="Ej: Nueces, mariscos, fresas...">
+                    </div>
+                    <button class="guardar">Guardar</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-inner">
+                  <div class="card-row">
+                    <img src="assets/buzon.png" alt="mail" class="card-thumb">
+                    <div class="card-text">
+                      <h3>¿Comentarios o quejas?</h3>
+                      <p class="muted">Comparte tus comentarios o quejas para mejorar nuestro servicio.</p>
+                      <textarea class="input-like" placeholder="Escriba aquí sus comentarios"></textarea>
+                    </div>
+                    <button class="enviar">Enviar</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </main>
+        </div>
       </div>
     </div>
-  </div>
-  <script>
-    // Botón de retroceso: preferir history.back() cuando sea posible, usar login.html como alternativa
-    (function(){
-      var back = document.querySelector('.btn-back');
-      if (!back) return;
-      back.addEventListener('click', function(e){
-        // Si el referente es del mismo origen o el historial tiene entradas, retroceder
-        var canGoBack = (document.referrer && document.referrer.indexOf(location.hostname) !== -1) || history.length > 1;
-        if (canGoBack) {
-          e.preventDefault();
-          history.back();
-        }
-        // de lo contrario permitir que el href del ancla navegue a login.html
-      });
+    <script>
+      // Botón de retroceso: preferir history.back() cuando sea posible, usar login.html como alternativa
+      (function(){
+        var back = document.querySelector('.btn-back');
+        if (!back) return;
+        back.addEventListener('click', function(e){
+          // Si el referente es del mismo origen o el historial tiene entradas, retroceder
+          var canGoBack = (document.referrer && document.referrer.indexOf(location.hostname) !== -1) || history.length > 1;
+          if (canGoBack) {
+            e.preventDefault();
+            history.back();
+          }
+          // de lo contrario permitir que el href del ancla navegue a login.html
+        });
+      })();
+    </script>
+  </body>
+  </html>
+      if (!user) {
+        try {
+          var arr = JSON.parse(localStorage.getItem('bocaditos_users') || '[]');
+          if (arr && arr.length) user = arr[arr.length - 1];
+        } catch (e) { user = null; }
+      }
+
+      if (!user) return; // nada que mostrar
+
+      // Nombre completo
+      var full = ((user.nombre || '') + ' ' + (user.apellido || '')).trim();
+      safeText('userFullName', full || user.correo || 'Usuario');
+
+      // Rol - mantenemos Beneficiario para usuarios registrados en estudiantes
+      safeText('roleText', 'Beneficiario');
+
+      // Carrera: si existe, mostrar; si no, ocultar fila
+      if (user.carrera) {
+        safeText('careerText', user.carrera);
+      } else {
+        var cr = document.getElementById('careerRow'); if (cr) cr.style.display = 'none';
+      }
+
+      // Info panel mapping
+      safeText('matriculaText', user.matricula || '-');
+      // Usamos telefono como 'Grupo' por falta de campo específico en el form
+      safeText('grupoText', user.telefono || user.ubicacion || '-');
+      safeText('cuatriText', user.cuatrimestre || '-');
+
+      // Si deseas, cambiar el estado o añadir lógica para cambiar 'Activo'
+      safeText('statusText', 'Activo');
     })();
   </script>
 </body>

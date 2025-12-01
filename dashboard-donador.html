@@ -10,21 +10,20 @@
   <div class="donor-layout">
     <nav class="donor-nav">
       <ul>
-        <li class="active">Inicio</li>
-        <li>Donaciones</li>
+        <li class="active"><a href="#inicio" class="nav-link">Inicio</a></li>
+        <li><a href="#donaciones" class="nav-link">Donaciones</a></li>
       </ul>
       <div class="chat">CHAT</div>
     </nav>
 
     <main class="donor-main">
-      <section class="donor-card">
+      <section class="donor-card" id="inicio">
         <div class="donor-header">DONADOR</div>
         <div class="avatar-wrap">
           <div class="avatar"><img src="assets/piña.png" alt="avatar" class="avatar-img"></div>
         </div>
         <div class="status-buttons">
           <span class="status active">Activo</span>
-          <span class="status inactive">Baja</span>
         </div>
         <button class="btn-logout" onclick="logout()">Cerrar Sesión</button>
 
@@ -38,7 +37,7 @@
         </div>
       </section>
 
-      <section class="donation-detail">
+      <section class="donation-detail" id="donaciones">
         <div class="detail-card">
           <div class="detail-title">DETALLE DE DONACIÓN</div>
           <form class="detail-form">
@@ -53,6 +52,45 @@
             </form>
           </div>
         </section>
+      
+      <!-- Vista completa para Donaciones (oculta por defecto) -->
+      <section class="donaciones-fullview" id="donaciones-view" style="display:none;padding:18px;">
+        <div class="container">
+          <div class="donaciones-panel">
+            <div style="flex:0 0 1px;" aria-hidden="true"></div>
+            <div style="flex:1;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                <div class="comentarios-title">COMENTARIOS</div>
+                <a href="#" id="volver-from-donaciones" class="volver">← volver</a>
+              </div>
+
+              <div style="display:flex;gap:18px;align-items:flex-start;margin-bottom:16px;">
+                <div class="estatus-box">
+                  <button id="estatusToggle" class="estatus-toggle" aria-expanded="false">ESTATUS <span class="caret">▾</span></button>
+                  <div class="estatus-list" id="estatusList" role="menu" aria-hidden="true">
+                    <div role="menuitem" data-value="ENTREGADO">ENTREGADO</div>
+                    <div role="menuitem" data-value="PENDIENTE">PENDIENTE</div>
+                    <div role="menuitem" data-value="CANCELADO">CANCELADO</div>
+                  </div>
+                </div>
+
+                <div style="flex:1;display:flex;flex-direction:column;gap:14px;">
+                  <div style="align-self:flex-end;max-width:120px;"><img src="assets/gato.png" alt="truck" style="width:100%;height:auto"></div>
+                  <div class="chat-box">
+                    <h3>CHAT</h3>
+                    <div class="chat-list" id="chatList"></div>
+                    <div class="chat-input-row">
+                      <select id="chatSender" class="sender-select" aria-label="Seleccionar remitente"><option value="Donador">Donador</option><option value="Administrador">Administrador</option></select>
+                      <input id="chatInput" class="message-input" placeholder="Escribir mensaje..." aria-label="Escribir mensaje">
+                      <button id="chatSend" class="chat-send">Enviar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       </main>
     </div>
     <script>
@@ -85,7 +123,146 @@
             try{ var arr = JSON.parse(localStorage.getItem('bocaditos_donor_donations')||'[]'); arr.push({data:data,ts:Date.now()}); localStorage.setItem('bocaditos_donor_donations', JSON.stringify(arr)); alert('Donación guardada localmente'); }catch(e){console.error(e); alert('Error al guardar'); }
           });
         }
+
+        // navegación: desplazamiento suave y marcar elemento activo
+        var navLinks = document.querySelectorAll('.donor-nav .nav-link');
+        navLinks.forEach(function(a){
+          a.addEventListener('click', function(e){
+            e.preventDefault();
+            var targetId = a.getAttribute('href').slice(1);
+            // alternar vistas: mostrar donaciones-view para 'donaciones', de lo contrario mostrar inicio + detalle de donación
+            var viewDon = document.getElementById('donaciones-view');
+            var inicioSection = document.getElementById('inicio');
+            var donationDetail = document.getElementById('donaciones');
+            if (targetId === 'donaciones') {
+              if (viewDon) viewDon.style.display = '';
+              if (inicioSection) inicioSection.style.display = 'none';
+              if (donationDetail) donationDetail.style.display = 'none';
+            } else {
+              if (viewDon) viewDon.style.display = 'none';
+              if (inicioSection) inicioSection.style.display = '';
+              if (donationDetail) donationDetail.style.display = '';
+              // desplazarse hasta la parte superior del área principal para Inicio
+              var mainTop = document.querySelector('.donor-main'); if (mainTop) mainTop.scrollIntoView({behavior:'smooth'});
+            }
+            // actualizar clase active
+            document.querySelectorAll('.donor-nav ul li').forEach(function(li){ li.classList.remove('active'); });
+            var parentLi = a.closest('li'); if (parentLi) parentLi.classList.add('active');
+          });
+        });
+
+        // volver desde la vista completa de donaciones
+        var volver = document.getElementById('volver-from-donaciones');
+        if (volver) volver.addEventListener('click', function(e){ e.preventDefault(); document.querySelector('.donor-nav .nav-link[href="#inicio"]').click(); });
+
+        // Dropdown ESTATUS: mostrar opciones y seleccionar
+        var estatusToggle = document.getElementById('estatusToggle');
+        var estatusList = document.getElementById('estatusList');
+        if (estatusToggle && estatusList) {
+          // iniciar la selección desde almacenamiento
+          try {
+            var saved = localStorage.getItem('bocaditos_donor_status');
+            if (saved) {
+              var found = Array.from(estatusList.children).find(function(d){ return d.dataset.value === saved; });
+              if (found) { found.classList.add('selected'); }
+            }
+          } catch(e){}
+
+          estatusToggle.addEventListener('click', function(e){
+            var open = estatusList.classList.toggle('open');
+            estatusToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            estatusList.setAttribute('aria-hidden', open ? 'false' : 'true');
+          });
+
+         // seleccionar opción
+          Array.from(estatusList.children).forEach(function(opt){
+            opt.addEventListener('click', function(ev){
+              var val = opt.dataset.value || opt.textContent.trim();
+              // marcar selección
+              Array.from(estatusList.children).forEach(function(d){ d.classList.remove('selected'); });
+              opt.classList.add('selected');
+              // guardar
+              try { localStorage.setItem('bocaditos_donor_status', val); } catch(e){ }
+              // cerrar
+              estatusList.classList.remove('open');
+              estatusToggle.setAttribute('aria-expanded','false');
+              estatusList.setAttribute('aria-hidden','true');
+            });
+          });
+
+          // cerrar al hacer clic fuera
+          document.addEventListener('click', function(ev){
+            if (!estatusToggle.contains(ev.target) && !estatusList.contains(ev.target)) {
+              if (estatusList.classList.contains('open')) {
+                estatusList.classList.remove('open');
+                estatusToggle.setAttribute('aria-expanded','false');
+                estatusList.setAttribute('aria-hidden','true');
+              }
+            }
+          });
+        }
       });
+    </script>
+    <script>
+      // Interactividad del chat: cargar/guardar mensajes y renderizar
+      (function(){
+        function loadMessages(){
+          try{ return JSON.parse(localStorage.getItem('bocaditos_donor_chat')||'[]'); }catch(e){ return []; }
+        }
+        function saveMessages(arr){ try{ localStorage.setItem('bocaditos_donor_chat', JSON.stringify(arr)); }catch(e){} }
+
+        var chatList = document.getElementById('chatList');
+        var chatInput = document.getElementById('chatInput');
+        var chatSend = document.getElementById('chatSend');
+        var chatSender = document.getElementById('chatSender');
+
+        function render(){
+          if (!chatList) return;
+          var msgs = loadMessages();
+          chatList.innerHTML = '';
+          msgs.forEach(function(m){
+            var row = document.createElement('div');
+            var senderClass = (m.sender && m.sender.toLowerCase().indexOf('donador')===0) ? 'mine' : 'admin';
+            row.className = 'chat-message ' + senderClass;
+
+            var av = document.createElement('div'); av.className = 'chat-avatar';
+            av.style.background = (m.sender && m.sender.toLowerCase().indexOf('donador')===0) ? '#2b8cc4' : '#ccc';
+
+            var contentWrap = document.createElement('div'); contentWrap.style.display = 'flex'; contentWrap.style.flexDirection = 'column';
+            var bubble = document.createElement('div'); bubble.className = 'chat-bubble'; bubble.textContent = m.text;
+            var senderLabel = document.createElement('div'); senderLabel.className = 'chat-sender inline'; senderLabel.textContent = m.sender || '';
+            contentWrap.appendChild(bubble);
+            contentWrap.appendChild(senderLabel);
+
+            row.appendChild(av);
+            row.appendChild(contentWrap);
+            chatList.appendChild(row);
+          });
+          // desplazarse hacia abajo
+          chatList.scrollTop = chatList.scrollHeight;
+        }
+
+        function addMessage(text, sender){
+          if (!text || !text.trim()) return;
+          var arr = loadMessages();
+          arr.push({ text: text.trim(), sender: sender || 'Donador', ts: Date.now() });
+          saveMessages(arr);
+          render();
+        }
+
+        // enlazar eventos
+        if (chatSend && chatInput) {
+          chatSend.addEventListener('click', function(){
+            var who = (chatSender && chatSender.value) || 'Donador';
+            addMessage(chatInput.value, who);
+            chatInput.value = ''; chatInput.focus();
+          });
+          chatInput.addEventListener('keydown', function(e){ if (e.key === 'Enter') { e.preventDefault(); var who = (chatSender && chatSender.value) || 'Donador'; addMessage(chatInput.value, who); chatInput.value=''; } });
+        }
+
+        // renderizado inicial
+        render();
+      })();
     </script>
 </body>
 </html>
